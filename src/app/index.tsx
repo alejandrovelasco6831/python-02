@@ -1,98 +1,174 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import React from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import MiBoton from "../components/MiBoton";
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Inicio() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ScrollView style={styles.contenedor}>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+      {/* DATOS PERSONALES */}
+      <View style={styles.encabezado}>
+        <Ionicons
+          name="person-circle"
+          size={110}
+          color="#2563eb"
+        />
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <Text style={styles.nombre}>
+          José Alejandro Velásquez Saavedra
+        </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+        <Text style={styles.profesion}>
+          Tecnólogo en Análisis y Desarrollo de Software
+        </Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <Text style={styles.institucion}>
+          SENA - Ficha 3407187
+        </Text>
+      </View>
+
+      {/* PERFIL PROFESIONAL */}
+      <View style={styles.tarjeta}>
+        <Text style={styles.titulo}>
+          Perfil Profesional
+        </Text>
+
+        <Text style={styles.descripcion}>
+          Soy aprendiz del SENA en el programa de Análisis
+          y Desarrollo de Software. Tengo conocimientos
+          en React, JavaScript, Python, Node.js y bases
+          de datos.
+
+          Me interesa el desarrollo de aplicaciones
+          web y móviles, aprender nuevas tecnologías
+          y mejorar mis habilidades como programador.
+        </Text>
+      </View>
+
+      {/* INFORMACIÓN PERSONAL */}
+      <View style={styles.tarjeta}>
+        <Text style={styles.titulo}>
+          Información Personal
+        </Text>
+
+        <Text style={styles.dato}>
+          📍 Ciudad: Bogotá D.C.
+        </Text>
+
+        <Text style={styles.dato}>
+          🎓 Formación: Tecnólogo ADSO
+        </Text>
+
+        <Text style={styles.dato}>
+          💻 Área: Desarrollo de Software
+        </Text>
+      </View>
+
+      {/* BOTONES DE CONTACTO */}
+      <View style={styles.tarjeta}>
+        <Text style={styles.titulo}>
+          Contacto
+        </Text>
+
+        <MiBoton
+          textoBoton="Enviar Correo"
+          nombreIcono="mail"
+          colorBoton="#eab308"
+          mensaje="Correo: escribe_aqui_tu_correo"
+        />
+
+        <MiBoton
+          textoBoton="Llamar"
+          nombreIcono="call"
+          colorBoton="#2563eb"
+          mensaje="Teléfono: escribe_aqui_tu_numero"
+        />
+
+        <MiBoton
+          textoBoton="LinkedIn"
+          nombreIcono="logo-linkedin"
+          colorBoton="#0a66c2"
+          mensaje="Mi perfil de LinkedIn"
+        />
+
+        <MiBoton
+          textoBoton="GitHub"
+          nombreIcono="logo-github"
+          colorBoton="#24292e"
+          mensaje="Mi repositorio de GitHub"
+        />
+      </View>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contenedor: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: "#f1f5f9",
+    padding: 20,
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+
+  encabezado: {
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 25,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+
+  nombre: {
+    fontSize: 23,
+    fontWeight: "bold",
+    color: "#1e293b",
+    textAlign: "center",
+    marginTop: 10,
   },
-  title: {
-    textAlign: 'center',
+
+  profesion: {
+    fontSize: 15,
+    color: "#2563eb",
+    textAlign: "center",
+    marginTop: 8,
   },
-  code: {
-    textTransform: 'uppercase',
+
+  institucion: {
+    fontSize: 13,
+    color: "#64748b",
+    marginTop: 5,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  tarjeta: {
+    backgroundColor: "#ffffff",
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: "#e2e8f0",
+  },
+
+  titulo: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1e293b",
+    marginBottom: 12,
+  },
+
+  descripcion: {
+    fontSize: 14,
+    color: "#475569",
+    lineHeight: 23,
+  },
+
+  dato: {
+    fontSize: 14,
+    color: "#475569",
+    marginBottom: 10,
   },
 });
